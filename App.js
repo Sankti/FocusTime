@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import { Focus } from './src/features/focus/focus';
-import { colors } from './src/utils/colors';
+import { Timer } from './src/features/timer/Timer';
 
 export default function App() {
-  const [focusSubject, setFocusSubject] = useState(null);
+  const [focusSubject, setFocusSubject] = useState("Hardcoded activity - change to null");
 
   return (
     <View style={styles.container}>
       {focusSubject ? (
-        <Text>Subject is set - this is a placeholder for the timer.</Text>
+        <Timer focusSubject={focusSubject} />
       ) : (
         <Focus addSubject={setFocusSubject} />
         )}
@@ -22,6 +22,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.darkBlue
+    backgroundColor: "#252250"
   },
 });
