@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Platform } from 'react-native';
 
 import { Focus } from './src/features/focus/focus';
 import { Timer } from './src/features/timer/Timer';
 
+import { spacing } from './src/utils/sizes';
 import { colors } from './src/utils/colors';
 
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {focusSubject ? (
-        <Timer />
+        <Timer focusSubject={focusSubject} />
       ) : (
         <Focus addSubject={setFocusSubject} />
         )}
@@ -24,6 +25,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'ios' ? spacing.medium : spacing.large,
     backgroundColor: colors.darkBlue
   },
 });
