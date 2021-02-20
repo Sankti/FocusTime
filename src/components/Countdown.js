@@ -6,6 +6,8 @@ import { colors } from '../utils/colors';
 
 const minutesToMilliseconds = (minutes) => minutes * 1000 * 60;
 
+const formatTime = (time) => time < 10 ? `0${time}` : time;
+
 export const Countdown = ({
   minutes = 20,
   isPaused,
@@ -15,7 +17,12 @@ export const Countdown = ({
   const minute = Math.floor(milliseconds / 1000 / 60) % 60;
   const second = Math.floor(milliseconds / 1000) % 60;
 
-  return <Text style={styles.text}>{minute}:{second}</Text>;
+  return (
+    <Text style={styles.text}>
+      {formatTime(minute)}
+      :
+      {formatTime(second)}
+    </Text>);
 };
 
 const styles = StyleSheet.create({
