@@ -11,14 +11,17 @@ const formatTime = (time) => time < 10 ? `0${time}` : time;
 export const Countdown = ({
   minutes = 20,
   isPaused = true,
+  onProgress,
 }) => {
   const interval = React.useRef(null);
+
   const countDown = () => {
     setMilliseconds((time) => {
       if (time === 0) {
         return time;
       }
       const timeLeft = time - 1000;
+      onProgress(timeLeft / minutesToMilliseconds(minutes))
       return timeLeft;
     })
   }

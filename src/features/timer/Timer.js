@@ -11,20 +11,25 @@ export const Timer = ({ focusSubject }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [progress, setProgress] = useState(1);
 
+  const onProgress = (progress) => {
+    setProgress(progress);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.countdown}>
-        <Countdown isPaused={!isStarted} />
+        <Countdown isPaused={!isStarted} onProgress={onProgress} />
       </View>
       <View style={{ paddingTop: spacing.xxl }}>
         <Text style={styles.title}>Focusing on:</Text>
         <Text style={styles.task}>{focusSubject}</Text>
       </View>
-      <View>
+      <View style={{ paddingTop: spacing.small }}>
         <ProgressBar
           progress={progress}
           color='#5E84E2'
           style={{height: 10}}
+          paddingTop={spacing.small}
         />
       </View>
       <View style={styles.buttonWrapper}>
