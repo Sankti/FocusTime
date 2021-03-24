@@ -15,6 +15,8 @@ export const Countdown = ({
 }) => {
   const interval = React.useRef(null);
 
+  const [ milliseconds, setMilliseconds ] = useState(null);
+
   const countDown = () => {
     setMilliseconds((time) => {
       if (time === 0) {
@@ -25,7 +27,10 @@ export const Countdown = ({
       return timeLeft;
     })
   }
-  const [ milliseconds, setMilliseconds ] = useState(minutesToMilliseconds(minutes));
+  
+  useEffect(() => {
+    setMilliseconds(minutesToMilliseconds(minutes));
+  }, [minutes]);
 
   useEffect(() => {
     if(isPaused) {
