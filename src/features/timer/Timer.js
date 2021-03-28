@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Vibrate, Platform } from 'react-native';
+import { View, StyleSheet, Text, Vibration, Platform } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { useKeepAwake } from 'expo-keep-awake';
 
@@ -23,7 +23,17 @@ export const Timer = ({ focusSubject }) => {
     setProgress(progress);
   };
 
+  const vibrate = () => {
+    if(Platform.OS === 'ios') {
+      const interval = setInterval(() => Vibration.vibrate(), 1000);
+      setTimeout(() => clearInterval(interval), 1000);
+    } else {
+      Vibration.vibrate('1s');
+    }
+  }
+
   const onEnd = () => {
+    vibrate();
     setMinutes(DEFAULT_TIME);
     setProgress(1);
     setIsStarted(false);
