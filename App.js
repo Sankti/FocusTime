@@ -2,20 +2,28 @@ import React, {useState} from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 
 import { Focus } from './src/features/focus/focus';
+import { FocusHistory } from './src/features/focus/focusHistory';
 import { Timer } from './src/features/timer/Timer';
 
 import { spacing } from './src/utils/sizes';
 import { colors } from './src/utils/colors';
 
+const STATUSES = {
+  COMPLETE: 1,
+  CANCELLED: 2
+};
+
 export default function App() {
   const [focusSubject, setFocusSubject] = useState(null);
   const [focusHistory, setFocusHistory] = useState([]);
 
-  useEffect(() => {
-    if(focusSubject) {
-      setFocusHistory([...focusHistory, focusSubject])
-    }
-  }, [focusSubject]);
+  const addFocusHistorySubjectWithState = (subject, status) => {
+    setFocusHistory([...focusHistory, { subject, status, }])
+    console.log(focusHistory);
+  };
+  const onClear = () => {
+
+  };
 
   return (
     <View style={styles.container}>
@@ -23,12 +31,19 @@ export default function App() {
         <Timer
           focusSubject={focusSubject}
           onTimerEnd={() => {
+            addFocusHistorySubjectWithState(focusSubject, STATUSES.COMPLETE)
             setFocusSubject(null);
           }}
-          clearSubject={() => setFocusSubject(null)}
+          clearSubject={() => {
+            addFocusHistorySubjectWithState(focusSubject, STATUSES.CANCELLED);
+            setFocusSubject(null);
+          }}
         />
       ) : (
-        <Focus addSubject={setFocusSubject} />
+        <>
+          <Focus addSubject={setFocusSubject} />
+          <FocusHistory focusHistory={focusHistory} onClear={onClear} />
+        </>
         )}
       <Text>{focusSubject}</Text>
     </View>
