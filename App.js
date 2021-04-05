@@ -8,7 +8,14 @@ import { spacing } from './src/utils/sizes';
 import { colors } from './src/utils/colors';
 
 export default function App() {
-  const [focusSubject, setFocusSubject] = useState("Hardcoded Activity - please change to null");
+  const [focusSubject, setFocusSubject] = useState(null);
+  const [focusHistory, setFocusHistory] = useState([]);
+
+  useEffect(() => {
+    if(focusSubject) {
+      setFocusHistory([...focusHistory, focusSubject])
+    }
+  }, [focusSubject]);
 
   return (
     <View style={styles.container}>
