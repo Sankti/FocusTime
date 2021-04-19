@@ -1,15 +1,11 @@
-import React from "react";
-import { View, StyleSheet, FlatList, Text, SafeAreaView } from "react-native";
+import React from 'react';
+import { View, StyleSheet, FlatList, Text, SafeAreaView } from 'react-native';
 
-import {fontSizes, spacing} from "../../utils/sizes";
-import { RoundedButton } from "../../components/RoundedButton";
+import { fontSizes, spacing } from '../../utils/sizes';
+import { RoundedButton } from '../../components/RoundedButton';
 
 const HistoryItem = ({ item, index }) => {
-  return (
-    <Text style={styles.historyItem(item.status)}>
-      {item.subject}
-    </Text>
-  )
+  return <Text style={styles.historyItem(item.status)}>{item.subject}</Text>;
 };
 
 export const FocusHistory = ({ focusHistory, onClear }) => {
@@ -22,21 +18,23 @@ export const FocusHistory = ({ focusHistory, onClear }) => {
       <SafeAreaView style={{ flex: 0.5, alignItems: 'center' }}>
         {!!focusHistory.length && (
           <>
-          <Text style={styles.title}>
-            Things we've focused on:
-          </Text>
+            <Text style={styles.title}>Things we've focused on:</Text>
             <FlatList
               style={{ flex: 1 }}
               contentContainerStyle={{ flex: 1, alignItems: 'center' }}
               data={focusHistory}
               renderItem={HistoryItem}
             />
+            <View style={styles.clearContainer}>
+              <RoundedButton
+                size={75}
+                title="Clear"
+                onPress={() => onClear()}
+              />
+            </View>
           </>
         )}
       </SafeAreaView>
-      <View style={styles.clearContainer}>
-        <RoundedButton size={75} title="Clear" onPress={() => onClear()} />
-      </View>
     </>
   );
 };
@@ -44,14 +42,14 @@ export const FocusHistory = ({ focusHistory, onClear }) => {
 const styles = StyleSheet.create({
   historyItem: (status) => ({
     color: status > 1 ? 'red' : 'green',
-    fontSize: fontSizes.medium
+    fontSize: fontSizes.medium,
   }),
   title: {
     color: 'white',
-    fontSize: fontSizes.large
+    fontSize: fontSizes.large,
   },
   clearContainer: {
-    alignItems: "center",
-    padding: spacing.medium
-  }
-})
+    alignItems: 'center',
+    padding: spacing.medium,
+  },
+});
