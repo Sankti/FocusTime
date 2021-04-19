@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Focus } from './src/features/focus/focus';
 import { FocusHistory } from './src/features/focus/focusHistory';
@@ -23,6 +24,14 @@ export default function App() {
 
   const onClear = () => {
     setFocusHistory([]);
+  };
+
+  const saveFocusHistory = async() => {
+    try {
+      AsyncStorage.setItem("focusHistory", JSON.stringify(focusHistory));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
