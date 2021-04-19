@@ -40,7 +40,7 @@ export default function App() {
 
       if(history && JSON.parse(history).length) {
         setFocusHistory(JSON.parse(history));
-      };
+      }
     } catch (e) {
       console.log(e);
     }
@@ -48,7 +48,7 @@ export default function App() {
 
   useEffect(() => {
     loadFocusHistory;
-  });
+  }, []);
 
   useEffect(() => {
     saveFocusHistory();
